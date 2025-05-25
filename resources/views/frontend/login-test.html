@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DermaScan Login Test</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    .pass { color: green; }
+    .fail { color: red; }
+  </style>
+</head>
+<body>
+  <h2>Login Form UI Tests</h2>
+  <ul id="results"></ul>
+
+  <iframe id="appFrame" src="login.html" width="100%" height="800" style="border:1px solid #ccc;"></iframe>
+
+  <script>
+    function assert(condition, message) {
+      const li = document.createElement("li");
+      li.textContent = condition ? `✅ ${message}` : `❌ ${message}`;
+      li.className = condition ? "pass" : "fail";
+      document.getElementById("results").appendChild(li);
+    }
+
+    document.getElementById("appFrame").addEventListener("load", () => {
+      const iframeDoc = document.getElementById("appFrame").contentDocument;
+
+      // Run assertions
+      assert(iframeDoc.querySelector('#email') !== null, 'Email field is present');
+      assert(iframeDoc.querySelector('#password') !== null, 'Password field is present');
+      assert(iframeDoc.querySelector('#submit-btn') !== null, 'Login button is present');
+
+      // Optional: simulate a click (just for test – won’t actually log in)
+      const btn = iframeDoc.querySelector('#submit-btn');
+      if (btn) {
+        btn.addEventListener('click', () => {
+          alert('Simulated login click!');
+        });
+      }
+    });
+  </script>
+</body>
+</html>

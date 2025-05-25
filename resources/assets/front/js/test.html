@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DermaScan Function Tests</title>
+  <style>
+    body { font-family: Arial; }
+    .pass { color: green; }
+    .fail { color: red; }
+  </style>
+</head>
+<body>
+  <h2>UI Behavior Test Results</h2>
+  <ul id="results"></ul>
+
+  <!-- Include your JS + jQuery + Swiper -->
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <script src="functions.js"></script>
+
+  <script>
+    function assertEqual(actual, expected, description) {
+      const li = document.createElement('li');
+      if (actual === expected) {
+        li.textContent = `✅ ${description}`;
+        li.className = 'pass';
+      } else {
+        li.textContent = `❌ ${description} (Expected: ${expected}, Got: ${actual})`;
+        li.className = 'fail';
+      }
+      document.getElementById('results').appendChild(li);
+    }
+
+    $(document).ready(function () {
+      // Example: Test if Swiper elements exist and initialized
+      assertEqual($('.swiper-container').length > 0, true, 'Swiper container exists');
+      assertEqual(typeof Swiper !== 'undefined', true, 'Swiper is loaded');
+      
+      // Check if Search button exists
+      assertEqual($('#quikSearchBtn').length > 0, true, 'Search button exists');
+
+      // Check if back-to-top button exists
+      assertEqual($('button.back-to-top').length > 0, true, 'Back-to-top button exists');
+
+      // You can add more such tests as needed...
+    });
+  </script>
+</body>
+</html>
